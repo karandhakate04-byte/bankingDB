@@ -70,3 +70,85 @@ CREATE TABLE AccountBranches (
     );
 
 desc loans;
+
+ALTER TABLE customers
+ADD DateOfBirth DATE;
+
+desc customers;
+
+ALTER TABLE customers
+MODIFY Phone VARCHAR(20);
+
+desc customers;
+
+ALTER TABLE Accounts
+ADD CONSTRAINT chk_MinBAlance
+CHECK (Balance >= 100);
+
+desc accounts;
+
+DROP TABLE AccountBranches;
+
+DROP TABLE Branhes;
+
+DROP TABLE Transctions;
+
+ALTER TABLE Accounts
+ADD customerID INT;
+
+ALTER TABLE Accounts
+ADD CONSTRAINT Fk_Accounts_Customers
+FOREIGN KEY (CustomerID)
+REFERENCES Customers (CustomerID);
+
+desc Accounts;
+
+ALTER TABLE customers
+MODIFY Firstname VARCHAR(50) NOT NULL;
+
+desc customers;
+
+ALTER TABLE Customers
+ADD CONSTRAINT uq_Email UNIQUE (Email);
+
+desc Customers;
+
+ALTER TABLE Accounts
+DROP COLUMN Customers;
+
+ALTER TABLE customers
+ALTER COLUMN lastname set default "NA";
+
+ALTER TABLE Accounts
+ADD branchID INT;
+
+ALTER TABLE Accounts
+ADD CONSTRAINT Fk_Accounts_Branches
+FOREIGN KEY (branchID)
+REFERENCES Branches(branchID);
+
+desc Accounts;
+
+ALTER TABLE Accounts
+DROP COLUMN Branches;
+
+ALTER TABLE Transactions
+ADD AccountID INT;
+
+ALTER TABLE Transactions
+ADD CONSTRAINT fk_AccountID
+FOREIGN KEY (AccountID)
+REFERENCES Accounts(AccountID);
+
+desc Transactions;
+
+ALTER TABLE Loans
+ADD customerID INT;
+
+ALTER TABLE Loans
+ADD CONSTRAINT fk_customerID
+FOREIGN KEY (customerID)
+REFERENCES customers(customerID);
+
+desc loans;
+
