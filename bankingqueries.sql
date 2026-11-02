@@ -99,7 +99,10 @@ ADD customerID INT;
 ALTER TABLE Accounts
 ADD CONSTRAINT Fk_Accounts_Customers
 FOREIGN KEY (CustomerID)
-REFERENCES Customers (CustomerID);
+REFERENCES Customers(CustomerID);
+
+alter table Accounts
+drop column customersID;
 
 desc Accounts;
 
@@ -152,3 +155,36 @@ REFERENCES customers(customerID);
 
 desc loans;
 
+
+CREATE TABLE KYC (
+KYCID INT PRIMARY KEY,
+AadharNo VARCHAR(12) NOT NULL,
+PanNo VARCHAR(10) NOT NULL,
+CustomerID INT NOT NULL,
+CONSTRAINT fk_customer
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+desc KYC;
+
+SHOW CREATE TABLE KYC; -- you can change table name as per your requirement 
+
+-- you can get information about constraint applies on a secific table 
+-- by the query written below
+
+SELECT 
+CONSTRAINT_NAME,
+CONSTRAINT_TYPE
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_SCHEMA = 'bankingdb'
+AND TABLE_NAME = 'kyc';
+
+INSERT INTO Customers
+VALUES
+(101,'Amit','Sharma','amit@gmail.com','9876543210','2024-01-15','1998-05-10');
+
+INSERT INTO Customers
+(customerid,firstname,lastname,email,phone,accountcreationdate,dateofbirth)
+VALUES(102,'Priya','Patil','priya@gmail.com','2343532523','2024-02-15','1999-08-22');
+
+select * from Customers;
