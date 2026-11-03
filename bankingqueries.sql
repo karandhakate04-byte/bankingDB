@@ -188,3 +188,88 @@ INSERT INTO Customers
 VALUES(102,'Priya','Patil','priya@gmail.com','2343532523','2024-02-15','1999-08-22');
 
 select * from Customers;
+
+INSERT INTO Customers
+(phone,email,lastname,firstname,accountcreationdate,dateofbirth,customerid)
+values ('9876543212','rahul@gmail.com','Verma','Rahul','2024-03-12','1997-11-14',103);
+
+INSERT INTO Customers
+VALUES
+(104,'Sneha','Joshi','sneha@gmail.com','9876543213','2024-04-18','2000-01-05'),
+(105,'Karan','Mehta','karan@gmail.com','9876543214','2024-05-25','1996-12-30');
+
+INSERT INTO Branches
+VALUES
+(1,'Nagpur Branch','Sitabuldi, Nagpur','0712-123456'),
+(2,'Pune Branch','Shivaji Nagar, Pune','020-223344'),
+(3,'Mumbai Branch','Andheri, Mumbai','022-334455');
+
+select * from branches;
+
+
+INSERT INTO Accounts
+VALUES
+(1001,'Savings',25000,1,101),
+(1002,'Current',45000,2,102),
+(1003,'Savings',18000,1,103),
+(1004,'Current',72000,3,104),
+(1005,'Savings',15000,2,105);
+
+
+select * from accounts;
+
+INSERT INTO Transactions
+VALUES
+(1,'2025-01-10',5000,'Deposit',1001),
+(2,'2025-01-12',2000,'Withdrawal',1001),
+(3,'2025-01-13',7000,'Deposit',1002),
+(4,'2025-01-15',3000,'Withdrawal',1003),
+(5,'2025-01-16',10000,'Deposit',1004);
+
+select * from transactions;
+
+INSERT INTO Loans
+VALUES
+(501,500000,8.5,'2024-01-01','2029-01-01',101),
+(502,250000,9.0,'2024-03-15','2028-03-15',103),
+(503,700000,7.8,'2024-06-20','2031-06-20',104);
+
+select * from loans;
+
+UPDATE customers
+set email = 'amit2026@yahoo.com'
+where customerid = 101;
+
+UPDATE customers
+set lastName = 'joshi'
+where customerid = 102;
+
+select * from customers;
+select * from branches;
+
+UPDATE branches
+set branchaddress = 'Civil, Nagpur',
+branchphone = '9766-641822'
+where branchID = 1;
+
+select * from branches;
+
+select * from KYC;
+
+INSERT INTO KYC 
+values (701,'273856438989','UNKJG2323J',101),
+(702,'232267437628','UNKHG5643K',103),
+(703,'245479333783','UNKID8962K',102);
+
+SELECT * FROM KYC;
+
+DELETE FROM KYC WHERE KYCID = 702;
+
+DELETE FROM KYC;
+
+
+
+
+
+
+
