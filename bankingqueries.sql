@@ -269,7 +269,103 @@ DELETE FROM KYC;
 
 
 
+select accountid,accounttype,balance 
 
+select * from customers
+where customerid = 104;
+
+
+SELECT 
+    *
+FROM
+    accounts
+WHERE
+    accounttype = 'savings'
+        AND balance > 20000;
+        
+        SELECT 
+    *
+FROM
+    accounts
+WHERE
+    accounttype = 'savings'
+        OR balance > 20000;
+        -- find all accounts where account type 
+        select * from accounts
+        where NOT accounttype >= 'Savings' ;
+        
+         select * from accounts
+        where NOT accounttype = 'Savings' ;
+        
+         select * from accounts
+        where NOT accounttype != 'Savings' ;
+        
+         select * from accounts
+        where NOT accounttype <> 'Savings' ;
+        
+        select * from loans; 
+        
+        select * from loans
+        where interestrate = 8.5 OR interestrate = 9.0;
+
+
+ select * from loans
+        where interestrate IN (8.5,9.0);
+        
+        select * from loans
+        where interestrate BETWEEN 7.5 AND 8.5;
+        
+        -- find all customer having alance between 20k and 60k 
+        select * from accounts
+        where balance BETWEEN 20000 and 60000;
+        
+        -- find all customer having alance between 20k and 60k 
+        -- and account type should be current 
+        select * from accounts
+        where balance BETWEEN 20000 and 60000 and accounttype = 'current';
+        
+        select * from customers;
+        
+        -- LIKE operator
+        select * from customers
+        where lastname LIKE 'J%';
+        
+         select * from customers
+        where lastname LIKE '%a';
+        
+        select * from customers
+        where firstname LIKE '%a';
+        
+        select * from customers
+        where firstname LIKE '%ya';
+        
+        select * from customers
+        where firstname LIKE 'P____';
+        
+          select * from customers
+        where firstname LIKE 'A___';
+        
+        select * from customers;
+        
+        select * from accounts;
+        
+        -- Sort accounts table as per balance in descending order
+        
+        select * from accounts
+        order by balance;
+        
+        select * from accounts
+        order by balance desc;
+        
+        select * from accounts
+        order by balance desc, balance desc ;
+        
+        
+        
+        
+        
+        
+        
 
 
 
