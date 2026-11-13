@@ -557,6 +557,84 @@ SELECT
     COUNT(InterestRate) as Interestratecount
 FROM loans;
 
+-- String function 
+
+select upper("hello");
+
+select upper(firstname) AS FirstName, Phone, email, from customer;
+select lower ;
+
+-- length() function 
+SELECT LENGTH('NAGPUR') AS 'NoOfCharacters';-- gives o/p in number of bytes
+SELECT LENGTH('नागपूर')p in number of bytes
+Select char_length("NAGPUR"); -- gives o/p in number of characters
+Select char_length("नागपूर"); -- gives o/p in number of characters
+
+-- concat() function
+
+select concat("hello"," ","World") as ConcatenatedString;
+select concat(firstname," ",lastname) as fullname, phone,email from customers;
+
+
+-- substring() or substr() function
+select substr("Hello World India",7,5) as extractedstring;
+
+select customerid, concat(substr(firstname,1,1),".",lastname) as fullname, phone,email from customers;
+
+-- trim() function
+
+SELECT LENGTH('hello World');
+SELECT LENGTH(TRIM(' Hello World  '));
+SELECT LENGTH(TRIM(SUBSTRING('Hello World', 6)));
+
+-- replace() function
+
+select replace("Mat mat Mat","M","C");
+
+-- Round() function
+
+
+select avg(Balance) from accounts
+where accounttype = "savings";
+
+select round(avg(Balance),2) as Avgbalance from accounts
+where accounttype = "savings";
+
+select round(3.6);
+select round(3.3);
+select round(3.5);
+
+-- Ceil() or Ceiling() function
+select ceiling(avg(Balance)) from accounts
+where accounttype = "Savings";
+
+-- floor() function
+
+select floor(avg(Balance)) from accounts
+where accounttype = "savings";
+
+
+-- Absolution() function .... It removes the sign
+select abs(-3656);
+select abs(-1.34);
+select abs(6.464);
+
+-- mod() function
+select  (7/3);
+select mod(7,3);
+
+-- power()
+select power(2.3);
+select power(1.5,3);
+
+-- SQRT()
+
+select sqrt(123);
+select sqrt(144);
+
+
+
+
 
 
 
