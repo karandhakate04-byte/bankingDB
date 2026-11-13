@@ -524,6 +524,38 @@ ELSE "Low value loan"
 END AS LoanCategory
 FROM loans;
 
+USE bankingdb;
+Select * from Customers
+Where Email is Null;
+
+SELECT * FROM Customers
+WHERE Phone IS NOT NULL;
+
+SELECT
+    FirstName,
+    Email,
+    Phone,
+    COALESCE(Email, Phone, 'No contact') AS BestContact
+FROM Customers;
+
+SELECT
+    AccountID,
+    Balance,
+    Balance > 30000 AS Result,
+    (Balance > 30000) IS UNKNOWN AS IsUnknown
+FROM Accounts;
+
+select AccountID,
+balance,
+balance > 30000 AS RESULT,
+( balance > 30000) IS UNKNOWN AS Isunknown
+from accounts;
+
+SELECT
+    COUNT(*) as TotalRows,
+    COUNT(LoanAmount) as Loanamountcount,
+    COUNT(InterestRate) as Interestratecount
+FROM loans;
 
 
 
