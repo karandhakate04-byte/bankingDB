@@ -632,9 +632,59 @@ select power(1.5,3);
 select sqrt(123);
 select sqrt(144);
 
+select customerid,FirstName,dateofbirth,
+year(dateofbirth),month(dateofbirth),day(dateofbirth)
+from customers where customerid = 104;
 
+select customerid,FirstName,dateofbirth,
+year(curdate()) - year(dateofbirth) as age
+from customers;
 
+select firstname, dateofbirth, 
+round(datediff(curdate(),dateofbirth) / 365,1) as age 
+from customers;
 
+select firstname, dateofbirth, 
+concat(firstname," age is ",round(datediff(curdate(),dateofbirth) / 365,1)) as age 
+from customers;
+
+select concat(firstname," ",lastname) as fullname,
+accountcreationdate,
+date_add(accountcreationdate,interval 1 year) as KYCRenewal
+from customers;
+
+select date_sub(curdate(),interval 7 day);
+
+-- Aggregate functions
+
+-- Calculate the total balance maintained acress all customer acounts
+
+select * from accounts;
+select sum(balance) totalBalance from accounts;
+select avg(balance) averageBalance from accounts;
+
+-- Identify the highest balance maintained in any customer account
+SELECT MIN(Balance) AS highest_balance
+FROM accounts;
+
+-- Determine the total number of customer accounts
+-- available in the system
+select count(*) as NoofAccounts from accounts;
+
+-- Group by 
+select accounttype, count(*) as Noofaccounts
+from accounts
+group by accountype;
+
+select accounttype, sum(balance) as noofAccounts
+from accounts
+group by accounttype;
+
+-- find total amount by transaction type 
+select * from transactions;
+select transactiontype, sum(amount) as nooftransactions
+from transactions
+group by transactiontype;
 
 
 
