@@ -742,8 +742,48 @@ where accounttype = "Current"
 group by branchid;
 
 
+-- Branches (by BranchID) having more than one account (HAVING).
+select Branchid, count(*) as Accounts
+From Accounts group by Branchid having count(*) > 1;
 
+-- Top 3 accounts by balance. Show how NULLs sort in ASC vs DESC.
+select * from accounts 
+ORDER BY Balance DESC LIMIT 3;
+select * from accounts 
+ORDER BY Balance ASC;
 
+-- Total and average balance per AccountType. 
+-- How are NULL types and NULL balances treated?
+
+select accounttype, sum(balance) as total, avg(balance) as average 
+from accounts group by accounttype;
+
+select * from customers;
+select * from accounts;
+
+-- JOIN
+ --  join combines relates rows from different 
+ -- tables based on a common column
+ 
+ -- 1. INNER JOIN
+ -- Matches rows that exist in both tables
+
+-- find all customers who have accounts and show their balance.
+select * from customers;
+select * from accounts;
+
+select c.CustomerID,c.firstname,c.lastname,a.accounttype,a.balance
+from customers c
+inner join accounts a 
+on c.customerID = a.customerID;
+
+-- find all the customers who have loans.
+-- output should contain customerid,firstname, lastname, phone, loanamount
+select * from customers;
+select c.CustomerID,c.firstname,c.lastname,c.phone,l.loanamount
+from customers c
+inner join loans l # by default mysql uses inner join if join type is not mention in query 
+on c.customerid = l.customerid;
 
 
 
