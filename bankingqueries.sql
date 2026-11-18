@@ -516,7 +516,7 @@ where email IS NULL AND phone IS NULL;
 -- CASE Statements
 select * from loans;
 
-select loanid,loanamount,customerid,
+select loanid,loanamount,customerid,g
 case 
 when loanamount >= 500000 THEN "High value loan"
 when loanamount >= 200000 THEN "Median value loan"
@@ -682,9 +682,75 @@ group by accounttype;
 
 -- find total amount by transaction type 
 select * from transactions;
-select transactiontype, sum(amount) as nooftransactions
+select transactiontype, sum(amount) as TotalAmount
 from transactions
 group by transactiontype;
+
+-- find total accounts for branch and transactiontype;
+select * from accounts;
+
+select branchid, accounttype, count(*) as noofAccounts
+from accounts
+group by branchid, accounttype
+order by noofAccounts desc;
+
+-- HAVING CLAUSE 
+-- find transaction type where total amount for tht transaction type 
+select transactiontype, sum(amount) as TotalAmount
+from transactions
+group by transactiontype
+-- having sum(amount) > 20000;
+having totalAmount > 20000;
+
+select transactiontype, sum(amount) as TotalAmount
+from transactions
+group by transactiontype
+having totalAmount > 10000 and transactiontype = "deposit";
+
+-- find the number of customers joined according to the year from customers table
+select * from customers;
+
+select year(accountcreationdate) as years, count(*) as totalCustomers
+from customers
+group by years
+order by totalcustomers desc;
+
+select * from loans;
+-- find total loan amount for all the customers.
+SELECT customerid, sum(loanAmount) AS TotalLoanAmount
+FROM Loans
+group by customerid
+order by Customerid;
+
+-- display distinct BranchID from accounts
+-- where Balance is greater than 30,000
+select * from accounts;
+select branchid, (branchid) balance from accounts
+where balance > 30000;
+
+-- display all savings accounts belonging to branch 1 or branch 3 .
+select * from accounts;
+
+select * from accounts 
+where Accounttype = "Savings" AND branchid = 1 or branchid = 3;
+
+-- find the average balance of current accounts for each branch. 
+-- display only branches where the Average balance exceeds 40000.
+
+select branchid, avg(balance) as avgbalance from accounts
+where accounttype = "Current"
+group by branchid;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
