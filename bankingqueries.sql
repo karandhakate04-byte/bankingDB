@@ -785,10 +785,97 @@ from customers c
 inner join loans l # by default mysql uses inner join if join type is not mention in query 
 on c.customerid = l.customerid;
 
+# Get customerid,customer name,account type, balance , branch name from related tables.
 
+SELECT 
+    c.customerid,
+    CONCAT_WS(' ', c.firstname, c.lastname)as fullname,
+    a.accounttype,
+    a.balance,
+    b.branchname
+FROM
+    customers c
+        INNER JOIN
+    accounts a ON c.customerid = a.customerid
+        INNER JOIN
+    branches b ON a.branchid = b.branchid
+    order by c.customerid;
+    
+    # LEFT JOIN
+    # Returns all rows from the left table, and matched rows from the right 
+    -- Get data for all customers and show their balance.
+select c.customerid,c.firstname,c.lastname,a.accounttype,a.balance
+ from customers c
+ left join accounts a 
+ on c.customerid = a.customerid;
+ -- where a.accounttype is NULL and a.balancce is NULL;
 
+-- RIGHT JOIN
+select c.customerid,c.firstname,c.lastname,a.accounttype,a.balance
+ from customers c
+ right join accounts a 
+ on c.customerid = a.customerid;
+ 
+ -- UNION 
+ select * from customers c
+ left join accounts a 
+ on c.customerid = a.customerid
+ UNION
+ select * from customers c
+ right join accounts a 
+ on c.customerid = a.customerid;
+ 
+ -- CROSS JOIN
+ select * from customers c
+ cross join accounts a ;
+ 
+ -- find the number of accounts held by each customer.
+ select c.customerid,c.firstname,c.lastname,count(a.accounttype) as NoofAccounts
+ from customers c 
+ left join accounts a 
+ on c.customerid = a.customerid
+ group by Customerid;
+ 
+ select * from customers;
+select * from accounts;
+ 
+ # find the number of  customers for each account type.
+ select accounttype, count(*)
+ from accounts
+group by accounttype;
+ 
+ select a.accounttype,count(a.customerid) as totalcustomers
+ from accounts a 
+ left join customers c
+ on a.customerid  = c.customerid
+ group by a.accounttype;
+ 
+ -- find customers who have more than one account.
+ select c.customerid,c.firstname,c.lastname,count(a.accountid) as Noofaccounts
+ from customers c
+left join accounts a  
+ on c.customerid = a.customerid
+ group by c.customerid
+ having Noofaccounts > 1;
+ 
+ -- find customers who have never performes a transaction.
+ select * from customers;
+select c.customerid, c.firstname,c.lastname,a.accountid,a.accounttype
+from customers c
+right join accounts a 
+on c.customerid = a.customerid
+left join transactions t 
+on a.accountid = t.accountid
+where t.transactionid IS NULL;
 
+select * from accounts;
+ 
+ 
+ 
 
+ 
+ 
+ 
 
 
 
