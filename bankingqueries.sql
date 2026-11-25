@@ -1080,15 +1080,64 @@ where customerid in
 (select customerid from accounts where branchid = 1);
 
 
+-- find all accounts whose balance is grater than
+-- any account in Branchid = 1
+-- ANY
+
+select * from accounts where branchid = 1;
+select accountid, accounttype, balance, customerid
+from accounts
+where balance > ANY
+(select balance from accounts where branchid = 1);
+
+ -- find all accounts whose balance is grater than
+-- all account in Branchid = 1
+-- ALL 
+
+select accountid, accounttype, balance, customerid
+from accounts
+where balance > ALL
+(select balance from accounts where branchid = 1);
+
+-- find the branch with the highest average account balance
+select * from accounts;
+select branchid, avg(balance) as avgbalance 
+from accounts
+group by Branchid
+order by avgbalance desc 
+limit 1;
 
 
+select branchid,avg(balance) as avgbal from accounts
+group by branchid
+having avgbal >= ( 
+select max(avgbalance) from
+(select avg(balance) as avgbalance from accounts
+group by branchid) as t);
 
-
-
+UPDATE accounts set balance = 33333
+where accountid = 1013;
         
         
-        
-        
+-- CORRRELATED SUBQUARY
+-- def: A correlated subquery references one or more columns from the outer query.
+-- It cannot execute independently and runs once for each row of the outer query.
 
+--  Find accounts whose balance is greater than 
+-- the average balance of their respective branch
+select * from accounts;
 
+select a.accountid, a.branchid
+from accounts a
+where a.balance > ( 
+select avg(balance)
+from accounts 
+where branchid = a.branchid);
+ 
+ # hw
+ -- find employees whose salary is greater than
+ -- the average salary of their respective department.
+ select * from employees;
+ 
+ # find customers who have more than one accounts.
 
