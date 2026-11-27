@@ -1134,10 +1134,128 @@ select avg(balance)
 from accounts 
 where branchid = a.branchid);
  
- # hw
+ # homework
  -- find employees whose salary is greater than
  -- the average salary of their respective department.
  select * from employees;
+ select e.employeeid, e.employeename, e.department, e.salary
+ from employees e
+ where e.salary > (
+ select avg(e1.salary)
+ from employees e1
+ where e1.department = e.department
+ );
+ 
  
  # find customers who have more than one accounts.
+select * from customers;
+select * from accounts;
+
+select customerid,count(balance) as total_accounts
+from accounts
+group by customerid
+having count(balance) > 1;
+ -- 
+select c.customerid , c.firstname, c.lastname
+from customers c where (
+select count(*) from accounts a 
+where c.customerid = a.customerid
+) > 1 ;
+
+
+-- TABLE SUBQUERY
+-- defition : - A table subquery returns multiple rows and multiple columns.
+-- It is used inside the FROM clause and behaves like a temporary table.
+-- RULE: The subquery must have an alias
+
+-- find the average account balance for each account type
+-- using a derived table.
+select * from accounts;
+select accountTypeBalance.accounttype, accountTypebalance.avgBalance
+from
+(select accounttype, avg(balance) as avgBalance
+from accounts 
+group by accounttype) as accountTypeBalance;
+
+-- Diaplay only those account types whose average balance is 
+-- greater than 30,000
+select accountTypeBalance.accounttype, accountTypebalance.avgBalance
+from
+(select accounttype, avg(balance) as avgBalance
+from accounts 
+group by accounttype) as accountTypeBalance
+where accountTypeBalance.avgBalance > 30000;
+
+-- find the top 3 customers based on their total account here 
+select * from accounts;
+select customerTotalBalance.customerid, customerTotalBalance.firstname, customerTotalBalance.TotalBalance
+from
+(select c.customerid,c.firstname, sum(a.balance) as totalbalance
+from customers c
+join accounts a
+on c.customerid = a.customerid
+group by c.customerid) as customerTotalBalance
+order by customerTotalBalance.TotalBalance desc
+limit 3;
+
+-- Subquery in SELECT Clause
+-- subquery in the SELECT clause is typically a scalar subquery used to create a derived column.
+
+-- Display each customer along with the number of ccounts they have 
+select * from customers;
+select c.customerid, c.firstname, (
+select COUNT(*)
+from accounts a 
+where a.customerid = c.customerid
+) as NoOfaccounts
+from customers c;
+
+-- Subquery inside UPDATE clause
+
+-- Increase the balance of accounts belonging to customers
+-- who have taken a loan by 5%
+select * from loans;
+select * from accounts;
+UPDATE accounts set balance = balance + (0.05 * balance)
+where customerid in (select customerid from loans);
+
+-- Subquery insise DELETE clause 
+
+-- Delete all transactions below amount of 100 where transaction type is withdrawal.
+select * from transactions;
+DELETE from transactions
+where transactionid in (select transactionid from (select Transactionid from transactions
+where Transactiontype = "Withdrawal" and amount < 1000) as t );
+
+-- SUBQURY INSIDE INSERT CLAUSE
+-- Create a HighValueAccounts table and insert all accounts whose 
+-- balance is greater than the average account balance.
+CREATE TABLE HighValueAccounts (
+    AccountID INT PRIMARY KEY,
+    CustomerID INT,
+    BranchID INT,
+    AccountType VARCHAR(20),
+    Balance DECIMAL(10,2),
+    FOREIGN KEY (CustomerID) REFERENCES customers(customerID),
+    FOREIGN KEY (BranchID) REFERENCES Branches(BranchID)
+);
+
+select * from highvalueaccounts;
+insert into highvalueaccounts (accountid,customerid,branchid,accounttype,balance)
+select accountid,customerid,branchid,accounttype,balance from accounts
+where balance > (
+select avg(balance) from accounts
+);
+
+-- Create a HighBalanceCustomers table and insert customers whose
+-- total account balance is greater than 50,000
+
+
+
+
+
+
+
+
+
 
